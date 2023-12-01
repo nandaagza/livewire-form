@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-
+use App\Models\FormTemplate;
 use App\Models\Post;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\MarkdownEditor;
@@ -27,7 +27,7 @@ class CreateForm extends Component implements HasForms
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('name')
                     ->required(),
                 // ...
             ])
@@ -36,7 +36,12 @@ class CreateForm extends Component implements HasForms
 
     public function create(): void
     {
-        dd($this->form->getState());
+        // dd($this->form->getState());
+
+        FormTemplate::create($this->form->getState());
+
+        dd("Success");
+
 
         // $this->data
     }
