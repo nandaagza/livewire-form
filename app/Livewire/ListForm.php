@@ -2,17 +2,24 @@
 
 namespace App\Livewire;
 
+use Filament\Tables;
 use Livewire\Component;
 use Filament\Tables\Table;
 use App\Models\FormTemplate;
+use Filament\Tables\Actions\Action;
 use Illuminate\Contracts\View\View;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
-use Illuminate\Database\Eloquent\Model;
 
 class ListForm extends Component implements HasForms, HasTable
 {
@@ -36,10 +43,18 @@ class ListForm extends Component implements HasForms, HasTable
             ->filters([
                 // ...
             ])
-            ->actions([])
-            ->bulkActions([
-                // ...
-            ]);
+            ->actions([
+                Action::make('view')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn (FormTemplate $record): string => route('filament.admin.pages.show-form-builder', ['record' => $record])),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([]);
+    }
+
+    public function createFormTemplate()
+    {
+        return redirect()->route('filament.admin.pages.form-builder');
     }
 
     public function render(): View

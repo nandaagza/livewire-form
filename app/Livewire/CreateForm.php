@@ -32,8 +32,8 @@ class CreateForm extends Component implements HasForms
             'content' => $this->content
         ]);
 
-        return redirect('admin/list-form-builder');
-        // return redirect()->route('admin/form-templates');
+        // return redirect('admin/list-form-builder');
+        return redirect()->route('filament.admin.pages.list-form-builder');
     }
 
     public ?array $data = [];
