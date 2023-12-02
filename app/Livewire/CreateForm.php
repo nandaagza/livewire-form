@@ -11,11 +11,30 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\Attributes\On;
+
 
 class CreateForm extends Component implements HasForms
 {
 
     use InteractsWithForms;
+
+    public $content;
+
+    #[On('create')]
+    public function create($message)
+    {
+        $this->content = json_decode($message);
+        // dd($this->form->getState()['name']);
+        // dd($this->content);
+        FormTemplate::create([
+            'name' => $this->form->getState()['name'],
+            'content' => $this->content
+        ]);
+
+        return redirect('admin');
+        // return redirect()->route('admin/form-templates');
+    }
 
     public ?array $data = [];
     public function mount(): void
@@ -34,17 +53,14 @@ class CreateForm extends Component implements HasForms
             ->statePath('data');
     }
 
-    public function create(): void
-    {
-        // dd($this->form->getState());
+    // public function create(): void
+    // {
+    //     dd($this->content);
 
-        FormTemplate::create($this->form->getState());
+    //     FormTemplate::create($this->form->getState());
 
-        dd("Success");
-
-
-        // $this->data
-    }
+    //     dd("Success");
+    // }
 
     public function render(): View
     {
