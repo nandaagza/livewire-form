@@ -1,4 +1,15 @@
+<?php
+$ok = json_encode($this->form_template->content);
+?>
 <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" class="form-control" wire:model="name" />
+
+    <input type="hidden" id="hide_me" value="{{ $ok }}">
+
+
+
+    {{-- {{ $form_template }} --}}
     <div id="fb-editor"></div>
 </div>
 
@@ -10,31 +21,34 @@
 
 
 <script>
-    var fbEditor = document.getElementById('fb-editor');
-    var formBuilder = $(fbEditor).formBuilder(
-        {
-            
+    $(document).ready(function() {
+        let bb = document.getElementById("hide_me");
+        var fbEditor = document.getElementById('fb-editor');
+
+        // Function to initialize the form builder with data
+        function initializeFormBuilder(data) {
+            $(fbEditor).formBuilder({
+                formData: data,
+                onSave: function(evt, formData) {
+                    console.log("Form data saved:", formData);
+                    @this.dispatch('update', {
+                        content: formData
+                    });
+                },
+            });
         }
-    );
-    
 
-    $(function() {
+        // Fetch data and initialize form builder
+        var fetchDataPromise = new Promise(function(resolve) {
+            // Simulate data fetching, replace this with your actual data fetching logic
+            setTimeout(function() {
+                var formData = JSON.parse(bb.value);
+                resolve(formData);
+            }, 50); // Adjust the timeout as needed
+        });
 
-        formBuilder.actions.setData([{
-                "type": "date",
-                "required": false,
-                "label": "Date Field",
-                "className": "form-control",
-                "name": "date-1701506116128-0",
-                "access": false,
-                "subtype": "date"
-            },
-            {
-                "type": "header",
-                "subtype": "h1",
-                "label": "Header",
-                "access": false
-            }
-        ]);
-    })
+        fetchDataPromise.then(function(data) {
+            initializeFormBuilder(data);
+        });
+    });
 </script>
