@@ -1,4 +1,5 @@
 <div>
+
     <form>
         {{ $this->form }}
         <div id="fb-editor" style="margin-top: 2rem"></div>
@@ -19,11 +20,32 @@
             icon: "&#128231;"
         }, ];
         var region = [];
+        var town = [];
+        var qua = [];
         var regions = <?php echo json_encode($regions); ?>;
+        var township = <?php echo json_encode($townships); ?>;
+        var quarter = <?php echo json_encode($quarters); ?>;
+
         for (const key in regions) {
             region = [...region,
                 {
                     label: regions[key],
+                    value: key,
+                }
+            ]
+        }
+        for (const key in township) {
+            town = [...town,
+                {
+                    label: township[key],
+                    value: key,
+                }
+            ]
+        }
+        for (const key in quarter) {
+            qua = [...qua,
+                {
+                    label: quarter[key],
                     value: key,
                 }
             ]
@@ -44,39 +66,20 @@
                         type: 'select',
                         label: 'Township',
                         className: 'form-control',
-                        values: [{
-                                label: 'Hlaing',
-                                value: 'option-2',
-                                selected: false
-                            },
-                            {
-                                label: 'Alone',
-                                value: 'option-3',
-                                selected: false
-                            }
-                        ]
+                        values: town
                     },
                     {
                         type: 'select',
                         label: 'Quarter',
                         className: 'form-control',
-                        values: [{
-                                label: 'Ward 1',
-                                value: 'option-2',
-                                selected: false
-                            },
-                            {
-                                label: 'Ward 2',
-                                value: 'option-3',
-                                selected: false
-                            }
-                        ]
+                        values: qua
                     },
                 ]
             },
             {
-                label: 'NRC',
+                label: 'National ID',
                 showHeader: true,
+                icon: "&#x1F3E1",
                 fields: [{
                         type: 'select',
                         label: 'nrc_code',
