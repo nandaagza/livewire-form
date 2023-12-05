@@ -5,6 +5,7 @@ $ok = json_encode($this->form_template->content);
     <label for="name">Name</label>
     <input type="text" id="name" name="name" class="form-control" wire:model="name" />
 
+
     <input type="hidden" id="hide_me" value="{{ $ok }}">
 
 
@@ -15,9 +16,8 @@ $ok = json_encode($this->form_template->content);
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-<script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-<script src="{{ URL::asset('assets/form-builder/form-render.min.js') }}"></script>
+<script src="{{ URL::asset('assets/form-builder/form-builder.min_1.js') }}"></script>
+
 
 
 <script>

@@ -8,8 +8,6 @@ $ok = json_encode($this->form_template->content);
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-<script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script src="{{ URL::asset('assets/form-builder/form-render.min.js') }}"></script>
 <script>
     let bb = document.getElementById("hide_me");
