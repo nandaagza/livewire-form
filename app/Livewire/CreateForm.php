@@ -2,25 +2,23 @@
 
 namespace App\Livewire;
 
-use App\Models\FormTemplate;
 use App\Models\Post;
+use App\Models\Region;
+use Livewire\Component;
+use Filament\Forms\Form;
+use Livewire\Attributes\On;
+use App\Models\FormTemplate;
+use Illuminate\Contracts\View\View;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
-use Livewire\Attributes\On;
-
 
 class CreateForm extends Component implements HasForms
 {
-
     use InteractsWithForms;
-
     public $content;
-
+    public $regions;
     #[On('create')]
     public function create($message)
     {
@@ -31,17 +29,14 @@ class CreateForm extends Component implements HasForms
             'name' => $this->form->getState()['name'],
             'content' => $this->content
         ]);
-
-        // return redirect('admin/list-form-builder');
-        return redirect()->route('filament.admin.pages.list-form-builder');
+        return redirect()->route('filament.admin.pages.show-form');
     }
-
     public ?array $data = [];
     public function mount(): void
     {
         $this->form->fill();
+        $this->regions = Region::get()->pluck('name', 'id')->toArray();
     }
-
     public function form(Form $form): Form
     {
         return $form
@@ -52,16 +47,6 @@ class CreateForm extends Component implements HasForms
             ])
             ->statePath('data');
     }
-
-    // public function create(): void
-    // {
-    //     dd($this->content);
-
-    //     FormTemplate::create($this->form->getState());
-
-    //     dd("Success");
-    // }
-
     public function render(): View
     {
         return view('livewire.create-form');
