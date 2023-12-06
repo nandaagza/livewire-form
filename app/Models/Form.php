@@ -10,4 +10,9 @@ class Form extends Model
     use HasFactory;
 
     protected $fillable = ["form_id", "form"];
+
+    public function form()
+    {
+        return $this->belongsTo(FormTemplate::class);
+    }
 }
