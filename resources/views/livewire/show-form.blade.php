@@ -3,8 +3,12 @@ $ok = json_encode($this->form_template->content);
 ?>
 <div>
     <input type="hidden" id="hide_me" value="{{ $ok }}">
-    <input type="number" id="form_id" name="form_id" hidden />
-    <div id="fb-reader"></div>
+    <form method="POST" action="{{ route('hello') }}">
+        @csrf
+        <input type="number" id="form_id" name="form_id" value="{{ $form_template->id }}" hidden />
+        <div id="fb-reader"></div>
+        <input type="submit" value="Save" class="btn btn-success" />
+    </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
